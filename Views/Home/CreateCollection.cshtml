@@ -1,0 +1,15 @@
+﻿@model CollectorDirector.ViewModels.CreateCollectionViewModel
+
+<h1>CreateCollection</h1>
+
+<form asp-controller="Home" asp-action="CreateCollection" method="post">
+
+    <div class="form-group">
+        <label asp-for="CollectionName"></label>
+        <input class="form-control" asp-for="CollectionName" />
+        <span asp-validation-for="CollectionName"></span>
+    </div>
+
+    <input type="submit" value="Create Collection" />
+
+</form>
