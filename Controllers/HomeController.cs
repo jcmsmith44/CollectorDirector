@@ -53,11 +53,18 @@ namespace CollectorDirector.Controllers
             return View(createCollectionViewModel);
         }
 
-        public IActionResult RemoveCollection()
+
+        [HttpPost]
+        public IActionResult RemoveCollection(string id)
         {
+            int RealId = int.Parse(id);
+            List<Collection> collections = context.Collections.ToList();
+            Collection theCollection = context.Collections.Single(c => c.ID == RealId);
 
+            context.Collections.Remove(theCollection);
+            context.SaveChanges();
 
-            return View();
+            return RedirectToAction("Index", "");
         }
 
         public IActionResult Privacy()

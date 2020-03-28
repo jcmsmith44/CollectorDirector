@@ -20,7 +20,7 @@
             <tr>
                 <td>@collection.CollectionName</td>
                 <td><button type="button" name="edit">Edit</button></td>
-                <td><button type="button" name="remove" onclick="confirm('Your @collection.CollectionName collection will be permanently removed.  Do you wish to continue?')">Remove</button></td>
+                <td><form method="post" action="/"><button asp-controller="Home" asp-action="RemoveCollection" asp-route-id=@collection.ID>Remove</button></form></td>
             </tr>
         }
     </table>
