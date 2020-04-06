@@ -8,6 +8,10 @@
     <h1 class="display-4">Welcome to Collector Director!</h1>
 </div>
 
+<div>
+    <p><a asp-controller="Home" asp-action="CreateCollection">Create Collection</a></p>
+</div>
+
 @if (Model.Count != 0)
 {
     <table class="table">
@@ -18,9 +22,9 @@
         @foreach (var collection in Model)
         {
             <tr>
-                <td>@collection.CollectionName</td>
-                <td><button type="button" name="edit">Edit</button></td>
-                <td><form method="post" action="/"><button asp-controller="Home" asp-action="RemoveCollection" asp-route-id=@collection.ID>Remove</button></form></td>
+                <td><a asp-controller="Collection" asp-action="DisplayCollection" asp-route-id="@collection.ID">@collection.CollectionName</a></td>
+                <td><input type="button" value="Edit" onclick="location.href='/Home/EditCollection/@collection.ID'" /></td>
+                <td><input type="button" value="Remove" onclick="location.href='/Home/RemoveCollection/@collection.ID'" /></td>
             </tr>
         }
     </table>
@@ -30,6 +34,3 @@
 {
     <p>You haven't created any collections yet</p>
 }
-<div>
-    <p><a asp-controller="Home" asp-action="CreateCollection">Create Collection</a></p>
-</div>

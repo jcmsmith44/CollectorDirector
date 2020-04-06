@@ -40,10 +40,6 @@ namespace CollectorDirector.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsOwned")
                         .HasColumnType("bit");
 
@@ -59,21 +55,6 @@ namespace CollectorDirector.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("CollectionItems");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("CollectionItem");
-                });
-
-            modelBuilder.Entity("CollectorDirector.Models.OwnedItem", b =>
-                {
-                    b.HasBaseType("CollectorDirector.Models.CollectionItem");
-
-                    b.Property<string>("Condition")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Value")
-                        .HasColumnType("int");
-
-                    b.HasDiscriminator().HasValue("OwnedItem");
                 });
 #pragma warning restore 612, 618
         }

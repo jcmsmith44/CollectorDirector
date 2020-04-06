@@ -1,8 +1,8 @@
 ﻿@model CollectorDirector.ViewModels.CreateCollectionViewModel
 
-<h1>Create Collection</h1>
+<h1>Rename Collection</h1>
 
-<form asp-controller="Home" asp-action="CreateCollection" method="post">
+<form asp-controller="Home" asp-action="EditCollection" method="post">
 
     <div class="form-group">
         <label asp-for="CollectionName"></label>
@@ -10,6 +10,6 @@
         <span asp-validation-for="CollectionName"></span>
     </div>
 
-    <input type="submit" value="Create Collection" />
+    <input type="submit" value="Update" />
 
 </form>

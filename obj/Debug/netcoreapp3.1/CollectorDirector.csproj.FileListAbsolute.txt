@@ -136,7 +136,10 @@ C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\Collecto
 C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\CollectorDirector.TagHelpers.input.cache
 C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\CollectorDirector.TagHelpers.output.cache
 C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\CollectorDirector.RazorCoreGenerate.cache
+C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\Razor\Views\Collection\AddCollectionItem.cshtml.g.cs
+C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\Razor\Views\Collection\DisplayCollection.cshtml.g.cs
 C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\Razor\Views\Home\CreateCollection.cshtml.g.cs
+C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\Razor\Views\Home\EditCollection.cshtml.g.cs
 C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
@@ -151,3 +154,4 @@ C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\Collecto
 C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\CollectorDirector.dll
 C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\CollectorDirector.pdb
 C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\CollectorDirector.csprojAssemblyReference.cache
+C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\Razor\Views\Collection\AddCategory.cshtml.g.cs

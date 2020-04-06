@@ -13,8 +13,8 @@ namespace CollectorDirector.Data
         public DbSet<Collection> Collections { get; set; }
         //public DbSet<CollectionCategory> CollectionCategories { get; set; }
         public DbSet<CollectionItem> CollectionItems { get; set; }
-        public DbSet<OwnedItem> OwnedItems { get; set; }
-        public DbSet<UnownedItem> UnownedItems { get; set; }
+        //public DbSet<OwnedItem> OwnedItems { get; set; }
+        //public DbSet<UnownedItem> UnownedItems { get; set; }
 
         public CollectionDbContext(DbContextOptions<CollectionDbContext> options)
             : base(options)

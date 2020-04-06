@@ -50,16 +50,39 @@ namespace CollectorDirector.Controllers
                 context.SaveChanges();
             }
 
-            return View(createCollectionViewModel);
+            return RedirectToAction("Index", "");
+        }
+
+        public IActionResult EditCollection(int id)
+        {
+            Collection editCollection = context.Collections.Single(c => c.ID == id);
+
+            CreateCollectionViewModel editCollectionViewModel = new CreateCollectionViewModel();
+
+            editCollectionViewModel.CollectionName = editCollection.CollectionName;
+
+            return View(editCollectionViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult EditCollection(CreateCollectionViewModel editCollectionViewModel, int id)
+        {
+            Collection editCollection = context.Collections.Single(c => c.ID == id);
+
+            if (ModelState.IsValid)
+            {
+                editCollection.CollectionName = editCollectionViewModel.CollectionName; 
+            }
+
+            context.SaveChanges();
+
+            return RedirectToAction("Index", "");
         }
 
 
-        [HttpPost]
-        public IActionResult RemoveCollection(string id)
+        public IActionResult RemoveCollection(int id)
         {
-            int RealId = int.Parse(id);
-            List<Collection> collections = context.Collections.ToList();
-            Collection theCollection = context.Collections.Single(c => c.ID == RealId);
+            Collection theCollection = context.Collections.Single(c => c.ID == id);
 
             context.Collections.Remove(theCollection);
             context.SaveChanges();

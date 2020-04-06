@@ -1,0 +1,41 @@
+﻿@model CollectorDirector.ViewModels.AddCollectionItemViewModel
+
+<h1>Add Collection Item</h1>
+
+<form asp-controller="Collection" asp-action="AddCollectionItem" method="post">
+
+    <div class="form-group">
+        <label asp-for="ItemName"></label>
+        <input class="form-control" asp-for="ItemName" />
+        <span asp-validation-for="ItemName"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="IsOwned"></label>
+        Yes<input type="radio" id="Yes" value="Yes" name="isOwned" />
+        No<input type="radio" id="No" value="No" name="isOwned" />
+        <span asp-validation-for="IsOwned"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Rarity">Rarity</label>
+        <select name="Rarity" id="Rarity">
+            <option value="Common">Common</option>
+            <option value="Uncommon">Uncommon</option>
+            <option value="Rare">Rare</option>
+            <option value="Very">Very Rare</option>
+            <option value="Unicorn">Unicorn</option>
+        </select>
+        <span asp-validation-for="Rarity"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="UserNote">Add a note for this item (optional)</label>
+        <input class="form-control" asp-for="UserNote" />
+        <span asp-validation-for="UserNote"></span>
+    </div>
+    <div hidden class="form-group">
+        <label asp-for="CollectionID">This is the collection id</label>
+        <input class="form-control" value="@ViewData["CollectionID"]" asp-for="CollectionID" />
+        <span asp-validation-for="CollectionID"></span>
+    </div>
+
+    <input type="submit" value="Add Item" />
+</form>
