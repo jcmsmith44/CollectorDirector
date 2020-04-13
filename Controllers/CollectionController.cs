@@ -38,12 +38,15 @@ namespace CollectorDirector.Controllers
         [HttpPost]
         public IActionResult AddCollectionItem(AddCollectionItemViewModel addCollectionItemViewModel, int collectionID)
         {
-            if (0 == 0)
+            if (ModelState.IsValid)
             {
                 CollectionItem newItem = new CollectionItem
                 {
                     ItemName = addCollectionItemViewModel.ItemName,
                     IsOwned = addCollectionItemViewModel.IsOwned,
+                    Value = addCollectionItemViewModel.Value,
+                    Priority = addCollectionItemViewModel.Priority,
+                    Condition = addCollectionItemViewModel.Condition,
                     Rarity = addCollectionItemViewModel.Rarity,
                     UserNote = addCollectionItemViewModel.UserNote,
                     CollectionID = addCollectionItemViewModel.CollectionID,
@@ -56,6 +59,46 @@ namespace CollectorDirector.Controllers
         return RedirectToAction("DisplayCollection", "Collection", new {id = addCollectionItemViewModel.CollectionID});
     }
 
+        public IActionResult EditCollectionItem(int id)
+        {
+            CollectionItem editCollectionItem = context.CollectionItems.Single(ci => ci.ID == id);
+
+            AddCollectionItemViewModel editCollectionItemViewModel = new AddCollectionItemViewModel();
+
+            editCollectionItemViewModel.ItemName = editCollectionItem.ItemName;
+            editCollectionItemViewModel.IsOwned = editCollectionItem.IsOwned;
+            editCollectionItemViewModel.Value = editCollectionItem.Value;
+            editCollectionItemViewModel.Priority = editCollectionItem.Priority;
+            editCollectionItemViewModel.Condition = editCollectionItem.Condition;
+            editCollectionItemViewModel.Rarity = editCollectionItem.Rarity;
+            editCollectionItemViewModel.UserNote = editCollectionItem.UserNote;
+            editCollectionItemViewModel.CollectionID = editCollectionItem.CollectionID;
+
+            return View(editCollectionItemViewModel);
+        }
+
+        [HttpPost]
+        public IActionResult EditCollectionItem(AddCollectionItemViewModel editCollectionItemViewModel, int id)
+        {
+            CollectionItem editCollectionItem = context.CollectionItems.Single(ci => ci.ID == id);
+
+            if (editCollectionItem != null)
+            {
+                editCollectionItem.ItemName = editCollectionItemViewModel.ItemName;
+                editCollectionItem.IsOwned = editCollectionItemViewModel.IsOwned;
+                editCollectionItem.Value = editCollectionItemViewModel.Value;
+                editCollectionItem.Priority = editCollectionItemViewModel.Priority;
+                editCollectionItem.Condition = editCollectionItemViewModel.Condition;
+                editCollectionItem.Rarity = editCollectionItemViewModel.Rarity;
+                editCollectionItem.UserNote = editCollectionItemViewModel.UserNote;
+                editCollectionItem.CollectionID = editCollectionItemViewModel.CollectionID;
+            }
+            context.Update(editCollectionItem);
+            context.SaveChanges();
+
+            return RedirectToAction("DisplayCollection", "Collection", new { id = editCollectionItem.CollectionID });
+        }
+
         public IActionResult RemoveCollectionItem(int id)
         {
             CollectionItem theCollectionItem = context.CollectionItems.Single(ci => ci.ID == id);
@@ -63,7 +106,7 @@ namespace CollectorDirector.Controllers
             context.CollectionItems.Remove(theCollectionItem);
             context.SaveChanges();
 
-            return RedirectToAction("DisplayCollection", "Collection");
+            return RedirectToAction("DisplayCollection", "Collection", new { id = theCollectionItem.CollectionID });
         }
 
         public IActionResult AddCollectionCategory()

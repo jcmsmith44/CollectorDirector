@@ -1,8 +1,21 @@
 ﻿@model CollectorDirector.ViewModels.AddCollectionItemViewModel
+<script>
+    function YesOwned(isChecked) {
+        if (isChecked == 0)
+            document.getElementById('Condition').style.display = 'block';
+        else
+            document.getElementById('Condition').style.display = 'none';
+    }
+    function NotOwned(isChecked) {
+        if (isChecked == 0)
+            document.getElementById('Priority').style.display = 'block';
+        else
+            document.getElementById('Priority').style.display = 'none';
+    }
+</script>
+<h1>EditCollectionItem</h1>
 
-<h1>Add Collection Item</h1>
-
-<form asp-controller="Collection" asp-action="AddCollectionItem" method="post">
+<form asp-controller="Collection" asp-action="EditCollectionItem" method="post">
 
     <div class="form-group">
         <label asp-for="ItemName"></label>
@@ -11,8 +24,10 @@
     </div>
     <div class="form-group">
         <label asp-for="IsOwned"></label>
-        Yes<input type="radio" id="Yes" value="true" name="isOwned" onclick="toggleFields(true)" />
-        No<input type="radio" id="No" value="false" name="isOwned" onclick="toggleFields(false)" />
+        Yes<input type="radio" id="Yes" value="true" name="IsOwned" />
+        No<input type="radio" id="No" value="false" name="IsOwned" />
+
+
         <span asp-validation-for="IsOwned"></span>
     </div>
     <div class="form-group">
@@ -20,7 +35,7 @@
         <input class="form-control" asp-for="Value" />
         <span asp-validation-for="Value"></span>
     </div>
-    <div class="form-group" id="Con" style="display:none">
+    <div class="form-group">
         <label asp-for="Condition"></label>
         <select name="Condition" id="Condition">
             <option value="Poor">Poor</option>
@@ -30,7 +45,7 @@
             <option value="Pristine">Pristine</option>
         </select>
     </div>
-    <div class="form-group" id="Pri" style="display:none">
+    <div class="form-group">
         <label asp-for="Priority"></label>
         <select name="Priority" id="Priority">
             <option value="VeryLow">Very Low</option>
@@ -58,23 +73,9 @@
     </div>
     <div hidden class="form-group">
         <label asp-for="CollectionID">This is the collection id</label>
-        <input class="form-control" value="@ViewData["CollectionID"]" asp-for="CollectionID" />
+        <input class="form-control" value="@Model.CollectionID" asp-for="CollectionID" />
         <span asp-validation-for="CollectionID"></span>
     </div>
 
     <input type="submit" value="Add Item" />
 </form>
-
-<script type="text/javascript">
-        function toggleFields(val) {
-            if (val) {
-                document.getElementById('Con').style.display = 'block';
-                document.getElementById('Pri').style.display = 'none';
-            }
-
-            if (!val) {
-                document.getElementById('Pri').style.display = 'block'
-                document.getElementById('Con').style.display = 'none';
-            }
-        }
-</script>

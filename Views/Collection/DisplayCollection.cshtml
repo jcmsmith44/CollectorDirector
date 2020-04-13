@@ -18,21 +18,22 @@
 
         @foreach (var collectionItem in Model)
         {
-            <tr>
-                <td>@collectionItem.ItemName</td>
-                @if (collectionItem.IsOwned == true)
-                {
-                    <td>Owned</td>
-                }
+    <tr>
+        <td>@collectionItem.ItemName</td>
+        @if (collectionItem.IsOwned == false)
+        {
+            <td>Owned</td>
+        }
 
-                @if (collectionItem.IsOwned == false)
-                {
-                    <td>Unowned</td>
-                }
-                <td>@collectionItem.Rarity</td>
-                <td>@collectionItem.UserNote</td>
-                <td><input type="button" value="Remove" onclick="location.href='/Collection/RemoveCollectionItem/@collectionItem.ID'" /></td>
-            </tr>
+        @if (collectionItem.IsOwned == true)
+        {
+            <td>Unowned</td>
+        }
+        <td>@collectionItem.Rarity</td>
+        <td>@collectionItem.UserNote</td>
+        <td><input type="button" value="Edit" onclick="location.href='/Collection/EditCollectionItem/@collectionItem.ID'" /></td>
+        <td><input type="button" value="Remove" onclick="location.href='/Collection/RemoveCollectionItem/@collectionItem.ID'" /></td>
+    </tr>
         }
     </table>
 }

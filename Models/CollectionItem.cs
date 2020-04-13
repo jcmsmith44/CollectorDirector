@@ -13,6 +13,9 @@ namespace CollectorDirector.Models
         public string Rarity { get; set; }
         public string UserNote { get; set; }
         public int CollectionID { get; set; }
+        public int Value { get; set; }
+        public string Condition { get; set; }
+        public string Priority { get; set; }
         //public int CategoryID { get; set; }
         //public CollectionCategory Category { get; set; }
     }
