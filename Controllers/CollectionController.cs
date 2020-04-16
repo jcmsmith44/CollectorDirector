@@ -18,10 +18,18 @@ namespace CollectorDirector.Controllers
             context = dbContext;
         }
 
-        public IActionResult DisplayCollection(int id)
+        public IActionResult DisplayCollection(int id, string search)
         {
             List<CollectionItem> collectionItems = context.CollectionItems.Where(ci => ci.CollectionID == id).ToList();
+   
+                if (!String.IsNullOrEmpty(search))
+                {
+                collectionItems = collectionItems.Where(ci => ci.ItemName.Contains(search)).ToList();
+                }
+            
             ViewData["CollectionID"] = id;
+            ViewData["CollectionName"] = context.Collections.Single(c => c.ID == id).CollectionName;
+            ViewData["Search"] = search;
 
             return View(collectionItems);
         }
@@ -63,6 +71,8 @@ namespace CollectorDirector.Controllers
         {
             CollectionItem editCollectionItem = context.CollectionItems.Single(ci => ci.ID == id);
 
+            ViewData["CollectionID"] = editCollectionItem.CollectionID;
+
             AddCollectionItemViewModel editCollectionItemViewModel = new AddCollectionItemViewModel();
 
             editCollectionItemViewModel.ItemName = editCollectionItem.ItemName;
@@ -82,7 +92,7 @@ namespace CollectorDirector.Controllers
         {
             CollectionItem editCollectionItem = context.CollectionItems.Single(ci => ci.ID == id);
 
-            if (editCollectionItem != null)
+            if (ModelState.IsValid)
             {
                 editCollectionItem.ItemName = editCollectionItemViewModel.ItemName;
                 editCollectionItem.IsOwned = editCollectionItemViewModel.IsOwned;
@@ -107,13 +117,6 @@ namespace CollectorDirector.Controllers
             context.SaveChanges();
 
             return RedirectToAction("DisplayCollection", "Collection", new { id = theCollectionItem.CollectionID });
-        }
-
-        public IActionResult AddCollectionCategory()
-        {
-            AddCategoryViewModel addCategoryViewModel = new AddCategoryViewModel();
-
-            return View(addCategoryViewModel);
         }
     }
 }

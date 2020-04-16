@@ -33,11 +33,11 @@
     <div class="form-group" id="Pri" style="display:none">
         <label asp-for="Priority"></label>
         <select name="Priority" id="Priority">
-            <option value="VeryLow">Very Low</option>
+            <option value="Very Low">Very Low</option>
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
             <option value="High">High</option>
-            <option value="VeryHigh">Very High</option>
+            <option value="Very High">Very High</option>
         </select>
     </div>
     <div class="form-group">
@@ -46,7 +46,7 @@
             <option value="Common">Common</option>
             <option value="Uncommon">Uncommon</option>
             <option value="Rare">Rare</option>
-            <option value="Very">Very Rare</option>
+            <option value="Very Rare">Very Rare</option>
             <option value="Unicorn">Unicorn</option>
         </select>
         <span asp-validation-for="Rarity"></span>
@@ -61,8 +61,10 @@
         <input class="form-control" value="@ViewData["CollectionID"]" asp-for="CollectionID" />
         <span asp-validation-for="CollectionID"></span>
     </div>
-
-    <input type="submit" value="Add Item" />
+    <div>
+        <input type="submit" value="Add Item" />
+        <input type="button" value="Cancel" onclick="location.href='/Collection/DisplayCollection/@ViewData["CollectionID"]'" />
+    </div>
 </form>
 
 <script type="text/javascript">

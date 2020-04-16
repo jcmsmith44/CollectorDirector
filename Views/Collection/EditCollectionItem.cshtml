@@ -1,19 +1,6 @@
 ﻿@model CollectorDirector.ViewModels.AddCollectionItemViewModel
-<script>
-    function YesOwned(isChecked) {
-        if (isChecked == 0)
-            document.getElementById('Condition').style.display = 'block';
-        else
-            document.getElementById('Condition').style.display = 'none';
-    }
-    function NotOwned(isChecked) {
-        if (isChecked == 0)
-            document.getElementById('Priority').style.display = 'block';
-        else
-            document.getElementById('Priority').style.display = 'none';
-    }
-</script>
-<h1>EditCollectionItem</h1>
+
+<h1>Edit Collection Item</h1>
 
 <form asp-controller="Collection" asp-action="EditCollectionItem" method="post">
 
@@ -24,10 +11,8 @@
     </div>
     <div class="form-group">
         <label asp-for="IsOwned"></label>
-        Yes<input type="radio" id="Yes" value="true" name="IsOwned" />
-        No<input type="radio" id="No" value="false" name="IsOwned" />
-
-
+        Yes<input type="radio" id="Yes" value="true" name="IsOwned" onclick="toggleFields(true)" />
+        No<input type="radio" id="No" value="false" name="IsOwned" onclick="toggleFields(false)" />
         <span asp-validation-for="IsOwned"></span>
     </div>
     <div class="form-group">
@@ -35,7 +20,7 @@
         <input class="form-control" asp-for="Value" />
         <span asp-validation-for="Value"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group" id="Con" style="display:none">
         <label asp-for="Condition"></label>
         <select name="Condition" id="Condition">
             <option value="Poor">Poor</option>
@@ -45,14 +30,14 @@
             <option value="Pristine">Pristine</option>
         </select>
     </div>
-    <div class="form-group">
+    <div class="form-group" id="Pri" style="display:none">
         <label asp-for="Priority"></label>
         <select name="Priority" id="Priority">
-            <option value="VeryLow">Very Low</option>
+            <option value="Very Low">Very Low</option>
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
             <option value="High">High</option>
-            <option value="VeryHigh">Very High</option>
+            <option value="Very High">Very High</option>
         </select>
     </div>
     <div class="form-group">
@@ -61,7 +46,7 @@
             <option value="Common">Common</option>
             <option value="Uncommon">Uncommon</option>
             <option value="Rare">Rare</option>
-            <option value="Very">Very Rare</option>
+            <option value="Very Rare">Very Rare</option>
             <option value="Unicorn">Unicorn</option>
         </select>
         <span asp-validation-for="Rarity"></span>
@@ -76,6 +61,24 @@
         <input class="form-control" value="@Model.CollectionID" asp-for="CollectionID" />
         <span asp-validation-for="CollectionID"></span>
     </div>
-
-    <input type="submit" value="Add Item" />
+    <div>
+        <input type="submit" value="Save Changes" />
+        <input type="button" value="Cancel" onclick="location.href='/Collection/DisplayCollection/@ViewData["CollectionID"]'" />
+    </div>
 </form>
+
+
+
+<script type="text/javascript">
+    function toggleFields(val) {
+        if (val) {
+            document.getElementById('Con').style.display = 'block';
+            document.getElementById('Pri').style.display = 'none';
+        }
+
+        if (!val) {
+            document.getElementById('Pri').style.display = 'block'
+            document.getElementById('Con').style.display = 'none';
+        }
+    }
+</script>

@@ -155,3 +155,4 @@ C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\Collecto
 C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\CollectorDirector.csproj.CopyComplete
 C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\CollectorDirector.dll
 C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\CollectorDirector.pdb
+C:\Users\jarod\Programming\C#\CollectorDirector\obj\Debug\netcoreapp3.1\CollectorDirector.csprojAssemblyReference.cache

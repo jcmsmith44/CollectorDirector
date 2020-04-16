@@ -1,44 +1,123 @@
 ﻿@model List<CollectorDirector.Models.CollectionItem>
 
-<h1>Your Collection</h1>
+<h1>@ViewData["CollectionName"]</h1>
 
 <div>
-    <p><a asp-controller="Collection" asp-action="AddCollectionItem" asp-route-thisID="@ViewData["CollectionID"]">Add Item</a></p>
-</div>
+        <a asp-controller="Collection" asp-action="AddCollectionItem" asp-route-thisID="@ViewData["CollectionID"]">Add Item</a>
+        <form asp-controller="Collection" asp-action="DisplayCollection" method="get"> 
+              Search for a collection item: @Html.TextBox("search") <input type="submit" value="Search" />
+        </form>
+    
+</div><br />
 
 @if (Model.Count != 0)
 {
-    <table class="table">
-        <tr>
-            <th>Name</th>
-            <th>Owned Status</th>
-            <th>Rarity</th>
-            <th>UserNote</th>
-        </tr>
+    <table class="table table-striped table-bordered table-sm" id="collectiontable">
+        <thead>
+            <tr>
+                <th onClick="sortTable(0)">Name</th>
+                <th onClick="sortTable(1)">Owned Status</th>
+                <th>Condition/Priority</th>
+                <th>Value</th>
+                <th>Rarity</th>
+                <th>UserNote</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var collectionItem in Model)
+            {
+                <tr>
+                    <td>@collectionItem.ItemName</td>
+                    @if (collectionItem.IsOwned == false)
+                    {
+                        <td>Unowned</td>
+                        <td>@collectionItem.Priority</td>
+                    }
 
-        @foreach (var collectionItem in Model)
-        {
-    <tr>
-        <td>@collectionItem.ItemName</td>
-        @if (collectionItem.IsOwned == false)
-        {
-            <td>Owned</td>
-        }
-
-        @if (collectionItem.IsOwned == true)
-        {
-            <td>Unowned</td>
-        }
-        <td>@collectionItem.Rarity</td>
-        <td>@collectionItem.UserNote</td>
-        <td><input type="button" value="Edit" onclick="location.href='/Collection/EditCollectionItem/@collectionItem.ID'" /></td>
-        <td><input type="button" value="Remove" onclick="location.href='/Collection/RemoveCollectionItem/@collectionItem.ID'" /></td>
-    </tr>
-        }
+                    @if (collectionItem.IsOwned == true)
+                    {
+                        <td>Owned</td>
+                        <td>@collectionItem.Condition</td>
+                    }
+                    <td>$@collectionItem.Value</td>
+                    <td>@collectionItem.Rarity</td>
+                    <td>@collectionItem.UserNote</td>
+                    <td>
+                        <input type="button" value="Edit" onclick="location.href='/Collection/EditCollectionItem/@collectionItem.ID'" />
+                        <input type="button" value="Remove" onclick="location.href='/Collection/RemoveCollectionItem/@collectionItem.ID'" />
+                    </td>
+                </tr>
+            }
+        </tbody>
     </table>
 }
 
-@if (Model.Count == 0)
+@if (Model.Count == 0 && ViewData["Search"] == null)
 {
-    <p>There are no items in this collection</p>
+    <p>There are no items in this collection.</p>
 }
+
+@if (Model.Count == 0 && ViewData["Search"] != null)
+{
+    <p>Your search yielded no results.</p>
+}
+
+<input type="button" value="Refresh" onclick="location.href='/Collection/DisplayCollection/@ViewData["CollectionID"]'" />
+
+<script>
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("collectiontable");
+        switching = true;
+        // Set the sorting direction to ascending:
+        dir = "asc";
+        /* Make a loop that will continue until
+        no switching has been done: */
+        while (switching) {
+            // Start by saying: no switching is done:
+            switching = false;
+            rows = table.rows;
+            /* Loop through all table rows (except the
+            first, which contains table headers): */
+            for (i = 1; i < (rows.length - 1); i++) {
+                // Start by saying there should be no switching:
+                shouldSwitch = false;
+                /* Get the two elements you want to compare,
+                one from current row and one from the next: */
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                /* Check if the two rows should switch place,
+                based on the direction, asc or desc: */
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        // If so, mark as a switch and break the loop:
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                /* If a switch has been marked, make the switch
+                and mark that a switch has been done: */
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                // Each time a switch is done, increase this count by 1:
+                switchcount++;
+            } else {
+                /* If no switching has been done AND the direction is "asc",
+                set the direction to "desc" and run the while loop again. */
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+</script>
